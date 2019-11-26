@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head ng-app="statoportApp">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>Mashups with google.maps.Data</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+  </head>
+  <body>
+    <div id="data-form">
+        <img id="logo-img" src="img/statoportlogo5.png" alt="Logotype">
+        <img id="shadow-img" src="img/shadow.jpg" alt="shadow">
+        <!-- <div id="raccoon">
+            <img id="raccoon1-img" src="img/raccoon1.png" alt="raccoon secon half">
+            <img id="raccoon2-img" src="img/raccoon2.png" alt="raccoon secon half">
+        </div> -->
+        <!-- <img id="car-img" src="img/car.png" alt="car"> -->
+
+        <div id="quiz">
+
+            <form id="startQuiz">
+                <h1>Want to know which state suits you best?</h1>
+                <p>You will need to answer only 5 questions.</p> 
+                <br> 
+                <button type="submit" id="fromStartTo1">Start</button>
+            </form>
+        
+            <form id="question1">
+                <h1>Question 1 (of 5)</h1>
+                <p>Some question Coming Soon</p>
+
+                <input type="radio" name="q1" value="value1" id="radio-one" class="form-radio"><label for="radio-one">Value1</label>
+                <br>
+                <input type="radio" name="q1" value="value2" id="radio-one" class="form-radio"><label for="radio-one">Value2</label>
+                <br>
+                <input type="radio" name="q1" value="value3" id="radio-one" class="form-radio"><label for="radio-one">Value3</label>
+                <br> <br>
+                <button type="submit" id="from1to2">Next</button>
+            </form>
+           
+            <form id="question2">
+                <h1>Question 2 (of 5)</h1>
+                <p>Some question Coming Soon</p>
+                <input type="radio" name="q2" value="value1" id="radio-one" class="form-radio"><label for="radio-one">Value1</label>
+                <br>
+                <input type="radio" name="q2" value="value2" id="radio-one" class="form-radio"><label for="radio-one">Value2</label>
+                <br>
+                <input type="radio" name="q2" value="value3" id="radio-one" class="form-radio"><label for="radio-one">Value3</label>
+                <br> <br>
+                <button type="submit" id="from2to3">Next</button>
+            </form>
+
+            <form id="question3">
+                <h1>Question 3 (of 5)</h1>
+                <p>Some question Coming Soon</p>
+                <input type="radio" name="q3" value="value1" id="radio-one" class="form-radio"><label for="radio-one">Value1</label>
+                <br>
+                <input type="radio" name="q3" value="value2" id="radio-one" class="form-radio"><label for="radio-one">Value2</label>
+                <br>
+                <input type="radio" name="q3" value="value3" id="radio-one" class="form-radio"><label for="radio-one">Value3</label>
+                <br> <br>
+                <button type="submit" id="from3to4">Next</button>
+            </form>
+
+            <form id="question4">
+                <h1>Question 4 (of 5)</h1>
+                <p>Some question Coming Soon</p>
+                <input type="radio" name="q4" value="value1" id="radio-one" class="form-radio"><label for="radio-one">Value1</label>
+                <br>
+                <input type="radio" name="q4" value="value2" id="radio-one" class="form-radio"><label for="radio-one">Value2</label>
+                <br>
+                <input type="radio" name="q4" value="value3" id="radio-one" class="form-radio"><label for="radio-one">Value3</label>
+                <br> <br>
+                <button type="submit" id="from4to5">Next</button>
+            </form>
+
+            <form id="question5">
+                <h1>Question 5 (of 5)</h1>
+                <p>Some question Coming Soon</p>
+                <input type="radio" name="q5" value="value1" id="radio-one" class="form-radio"><label for="radio-one">Value1</label>
+                <br>
+                <input type="radio" name="q5" value="value2" id="radio-one" class="form-radio"><label for="radio-one">Value2</label>
+                <br>
+                <input type="radio" name="q5" value="value3" id="radio-one" class="form-radio"><label for="radio-one">Value3</label>
+                <br> <br>
+                <button type="submit" id="from5toResult">Get Result</button>
+            </form>
+
+            <form id="result">
+                <h1>Result</h1>
+                <p>Some result Coming Soon</p>
+                <button type="submit" id="Try again">Try again</button>
+            </form>
+            <!-- <img id="car-img" src="img/carGrey.png" alt="car"> -->
+
+        </div>
+    </div>
+
+  <div id="data-map">
+      <div id="controls">
+          <!-- <p id="h1-select-label">Select a classification</p> -->
+          <div class="custom-select">
+          <select id="census-variable">
+            <option value="https://storage.googleapis.com/mapsdevsite/json/DP02_0066PE.json">Population over 25 that completed high school</option>
+            <option value="https://storage.googleapis.com/mapsdevsite/json/DP05_0017E.json">Median age</option>
+            <option value="https://storage.googleapis.com/mapsdevsite/json/DP05_0001E.json">Total population</option>
+            <option value="https://storage.googleapis.com/mapsdevsite/json/DP02_0016E.json">Average family size</option>
+            <option value="https://storage.googleapis.com/mapsdevsite/json/DP03_0088E.json">Per-capita income</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/GrossDomesticProductperCapita.json?generation=1574196973432878&alt=media">Gross Domestic Product  per Capita ($ Dollars)</option>
+            
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/HighSchoolAttainment.json?generation=1574197235523339&alt=media">High School Attainment</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/NumberOf4-YearCollegesandUniversities.json?generation=1574197734755235&alt=media">Number of 4-Year Colleges and Universities</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/UnemploymentRate.json?generation=1574197908951495&alt=media">Unemployment Rate</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/Well-BeingIndex.json?generation=1574198047955146&alt=media">Well-Being Index</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/statepopulationdensity.json?generation=1574202990492770&alt=media">State population density (people / square mile)</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/PovertyRate.json?generation=1574446941948992&alt=media">Poverty Rate (%)</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/StateIndividualIncomeTaxTopRate.json?generation=1574449303849820&alt=media">State Individual Income Tax Top Rate (%)</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/StateCorporateIncomeTaxTopRate.json?generation=1574450289306604&alt=media">State Corporate Income Tax Top Rate (%)</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/StateandLocalTaxRevenueasaPercentageofPersonalIncome.json?generation=1574451383270443&alt=media">State and Local Tax Revenue as a Percentage of Personal Income (%)</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/StateSalesTaxRate.json?generation=1574453403902006&alt=media">State Sales Tax Rate (%)</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/AverageRetailPricePerkWh.json?generation=1574454570524406&alt=media">Average Retail Price Per kWh, Commercial (Cents)</option>
+
+            <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/NaturalGasperThousandCubicFeet.json?generation=1574461597568032&alt=media">Natural Gas, Cost per Thousand Cubic Feet, Commercial ($ Dollars)</option>
+
+
+
+          </select>
+          </div>
+      </div>
+          <div id="legend">
+              <div id="census-min">min</div>
+              <div class="color-key"><span id="data-caret">&#x25c6;</span></div>
+              <div id="census-max">max</div>
+            </div>
+          
+            <div id="data-box">
+                <label id="data-label" for="data-value"></label>
+                <span id="data-value"></span>
+            </div>
+  </div>
+
+  <div id="map"></div>
+
+  <script type='text/javascript' src='scripts/script.js'></script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAai5JG0shoNVVtJva0jOLBCOIhQehfDxI&callback=initMap">
+    </script>
+  </body>
+</html>
