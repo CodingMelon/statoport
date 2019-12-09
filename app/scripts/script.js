@@ -189,17 +189,29 @@
 //Angular for select
 
 let statoportApp = angular.module('statoportApp', []);
-statoportApp.controller('formController', ['$scope', function($scope) {
-    $scope.censuses = [
-      {name: 'Please select census data', value: "not_an_option"},
-      {name:'Gross Domestic Product  per Capita ($ Dollars)', value:'https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/GrossDomesticProductperCapita.json?generation=1574196973432878&alt=media'},
-      {name:'High School Attainment', value:'https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/HighSchoolAttainment.json?generation=1574197235523339&alt=media'},
-    ];
+statoportApp.controller('formController', ['$scope', function($scope, $http) {
+
+  let getSelectOptions = function() {
+		$http.get('/censuses').then(function(response) {
+      $scope.censuses = response.data;
+      console.log($scope.censuses);
+
+		});
+	}
+
+  getSelectOptions();
+  
+    // $scope.censuses = [
+    //   {name: 'Please select census data', value: "not_an_option"},
+    //   {name:'Gross Domestic Product  per Capita ($ Dollars)', value:'https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/GrossDomesticProductperCapita.json?generation=1574196973432878&alt=media'},
+    //   {name:'High School Attainment', value:'https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/HighSchoolAttainment.json?generation=1574197235523339&alt=media'},
+    // ];
 
     $scope.change = function() {
       if ($scope.censusSelect.value != 'not_an_option') {
           clearCensusData();
           loadCensusData($scope.censusSelect.value);
+          console.log($scope.censuses);
           //console.log($scope.censusSelect.value);
       }
     }
