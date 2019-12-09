@@ -1,4 +1,3 @@
-
       
       var mapStyle = [{
         'stylers': [{'visibility': 'off'}]
@@ -30,11 +29,12 @@
         map.data.addListener('mouseout', mouseOutOfRegion);
 
         // wire up the button
-        var selectBox = document.getElementById('census-variable');
-        google.maps.event.addDomListener(selectBox, 'change', function() {
-          clearCensusData();
-          loadCensusData(selectBox.options[selectBox.selectedIndex].value);
-        });
+        // var selectBox = document.getElementById('census-variable');
+        // google.maps.event.addDomListener(selectBox, 'change', function() {
+        //   clearCensusData();
+        //   loadCensusData(selectBox.options[selectBox.selectedIndex].value);
+        // });
+
 
         // state polygons only need to be loaded once, do them now
         loadMapShapes();
@@ -99,6 +99,8 @@
       function clearCensusData() {
         censusMin = Number.MAX_VALUE;
         censusMax = -Number.MAX_VALUE;
+        console.log("DEBUG!!!");
+        console.log(map);
         map.data.forEach(function(row) {
           row.setProperty('census_variable', undefined);
         });
@@ -183,6 +185,31 @@
         // reset the hover state, returning the border to normal
         e.feature.setProperty('state', 'normal');
       }
+
+//Angular for select
+
+let statoportApp = angular.module('statoportApp', []);
+statoportApp.controller('formController', ['$scope', function($scope) {
+    $scope.censuses = [
+      {name: 'Please select census data', value: "not_an_option"},
+      {name:'Gross Domestic Product  per Capita ($ Dollars)', value:'https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/GrossDomesticProductperCapita.json?generation=1574196973432878&alt=media'},
+      {name:'High School Attainment', value:'https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/HighSchoolAttainment.json?generation=1574197235523339&alt=media'},
+    ];
+
+    $scope.change = function() {
+      if ($scope.censusSelect.value != 'not_an_option') {
+          clearCensusData();
+          loadCensusData($scope.censusSelect.value);
+          //console.log($scope.censusSelect.value);
+      }
+    }
+
+    $scope.censusSelect = $scope.censuses[0];
+    //$scope.change();
+  }]);
+
+//End angular for select
+
 
 // Code for quiz
 
