@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-  <head ng-app="statoportApp">
+<html ng-app="statoportApp">
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <title>Mashups with google.maps.Data</title>
@@ -8,15 +8,10 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
   </head>
-  <body>
+  <body ng-controller="formController">
     <div id="data-form">
         <img id="logo-img" src="img/statoportlogo5.png" alt="Logotype">
         <img id="shadow-img" src="img/shadow.jpg" alt="shadow">
-        <!-- <div id="raccoon">
-            <img id="raccoon1-img" src="img/raccoon1.png" alt="raccoon secon half">
-            <img id="raccoon2-img" src="img/raccoon2.png" alt="raccoon secon half">
-        </div> -->
-        <!-- <img id="car-img" src="img/car.png" alt="car"> -->
 
         <div id="quiz">
 
@@ -93,16 +88,14 @@
                 <p>Some result Coming Soon</p>
                 <button type="submit" id="Try again">Try again</button>
             </form>
-            <!-- <img id="car-img" src="img/carGrey.png" alt="car"> -->
 
         </div>
     </div>
 
   <div id="data-map">
       <div id="controls">
-          <!-- <p id="h1-select-label">Select a classification</p> -->
           <div class="custom-select">
-          <select id="census-variable">
+          <!-- <select id="census-variable">
             <option value="https://storage.googleapis.com/mapsdevsite/json/DP02_0066PE.json">Population over 25 that completed high school</option>
             <option value="https://storage.googleapis.com/mapsdevsite/json/DP05_0017E.json">Median age</option>
             <option value="https://storage.googleapis.com/mapsdevsite/json/DP05_0001E.json">Total population</option>
@@ -139,7 +132,17 @@
 
             <option value="https://www.googleapis.com/download/storage/v1/b/my-map-app-jsons/o/Average-temperature-in-January.json?generation=1575316336637939&alt=media">Average temperature in January (in degrees Fahrenheit)</option>
 
-          </select>
+          </select> -->
+
+          <!-- <form name="myForm">
+            <select name="singleSelect" ng-model="data.singleSelect">
+              <option value="option-1">Option 1</option>
+              <option value="option-2">Option 2</option>
+            </select>
+          </form> -->
+
+          <select id="census-variable" ng-model="censusSelect" ng-options="census.name for census in censuses" ng-change="change()"></select>
+
           </div>
       </div>
           <div id="legend">
