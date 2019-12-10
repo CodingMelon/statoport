@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.get('/censuses', function(request, response) {
 	console.log('Server received GET request from Angular controller');
 
-	db.statoport_db.find(function(error, docs){
+	db.statoport_db.find({}, {"name":1, "value":1, _id:0}, function(error, docs) {
 		response.json(docs);
 	});
 });

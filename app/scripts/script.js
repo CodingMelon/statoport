@@ -95,6 +95,35 @@
         xhr.send();
       }
 
+      function loadCensusData_new(variable) {
+          var censusData = variable;
+          censusData.shift(); // the first row contains column names
+          censusData.forEach(function(row) {
+            var censusVariable = parseFloat(row[0]);
+            var stateId = row[1];
+            console.log(stateId);
+
+            // keep track of min and max values
+            if (censusVariable < censusMin) {
+              censusMin = censusVariable;
+            }
+            if (censusVariable > censusMax) {
+              censusMax = censusVariable;
+            }
+
+            // update the existing row with the new data
+            map.data
+              .getFeatureById(stateId)
+              .setProperty('census_variable', censusVariable);
+          });
+
+          // update and display the legend
+          document.getElementById('census-min').textContent =
+              censusMin.toLocaleString();
+          document.getElementById('census-max').textContent =
+              censusMax.toLocaleString();
+      }
+
       /** Removes census data from each shape on the map and resets the UI. */
       function clearCensusData() {
         censusMin = Number.MAX_VALUE;
@@ -189,13 +218,15 @@
 //Angular for select
 
 let statoportApp = angular.module('statoportApp', []);
-statoportApp.controller('formController', ['$scope', function($scope, $http) {
+//statoportApp.controller('formController', ['$scope', function($scope, $http) {
+statoportApp.controller('formController', function($scope, $http) {
 
   let getSelectOptions = function() {
 		$http.get('/censuses').then(function(response) {
+      console.log('Sending request for /censuses...');
       $scope.censuses = response.data;
       console.log($scope.censuses);
-
+      $scope.censusSelect = $scope.censuses[0];
 		});
 	}
 
@@ -210,15 +241,23 @@ statoportApp.controller('formController', ['$scope', function($scope, $http) {
     $scope.change = function() {
       if ($scope.censusSelect.value != 'not_an_option') {
           clearCensusData();
-          loadCensusData($scope.censusSelect.value);
+          // loadCensusData($scope.censusSelect.value);
+          loadCensusData_new($scope.censusSelect.value);
           console.log($scope.censuses);
           //console.log($scope.censusSelect.value);
       }
     }
 
-    $scope.censusSelect = $scope.censuses[0];
+    console.log('$scope');
+    console.log($scope);    
+    console.log('$scope.censusSelect');
+    console.log($scope.censusSelect);
+    console.log('$scope.censuses');
+    console.log($scope.censuses);
+    //$scope.censusSelect = $scope.censuses[0];
     //$scope.change();
-  }]);
+  //}]);
+  });
 
 //End angular for select
 
