@@ -248,15 +248,174 @@ statoportApp.controller('formController', function($scope, $http) {
       }
     }
 
-    console.log('$scope');
-    console.log($scope);    
-    console.log('$scope.censusSelect');
-    console.log($scope.censusSelect);
-    console.log('$scope.censuses');
-    console.log($scope.censuses);
+    // console.log('$scope');
+    // console.log($scope);    
+    // console.log('$scope.censusSelect');
+    // console.log($scope.censusSelect);
+    // console.log('$scope.censuses');
+    // console.log($scope.censuses);
+
     //$scope.censusSelect = $scope.censuses[0];
     //$scope.change();
   //}]);
+
+  let getStatesforQuiz = function() {
+		$http.get('/states').then(function(response) {
+      console.log('Sending request for /states...');
+      $scope.states = response.data;
+      console.log($scope.states);
+		});
+  }
+  
+  $scope.getAllStates = function(){
+    getStatesforQuiz();
+  }
+
+  $scope.getStatesQ1 = function(){
+    let newArr = [];
+      console.log("$scope.question.q1");
+      console.log($scope.question.q1);
+      let arr = $scope.states;
+      arr.sort(function(a, b) {
+        return parseFloat(a.tempjanuary) - parseFloat(b.tempjanuary);
+      });
+      console.log("arr sort tempjanuary");
+      console.log(arr);
+      if ($scope.question.q1 == "cold"){
+        for (let i = 0; i < Math.floor(arr.length / 2); i++){
+          newArr.push(arr[i]);
+        }
+      }
+      if ($scope.question.q1 == "heat"){
+        for (let i = Math.floor(arr.length / 2); i <= arr.length-1; i++){
+          newArr.push(arr[i]);
+        }
+      }
+      // console.log("newArr");
+      // console.log(newArr);
+      // $scope.clearRadio = false;
+      return newArr;
+  }
+
+  $scope.getStatesQ2 = function(){
+    console.log("$scope.question.q2");
+    console.log($scope.question.q2);
+    let arr = $scope.getStatesQ1();
+    let newArr = [];
+    arr.sort(function(a, b) {
+      return parseFloat(a.сrimerate) - parseFloat(b.сrimerate);
+    });
+    console.log("arr sort crimerate");
+    console.log(arr);
+    if ($scope.question.q2 == "yes"){
+      for (let i = 0; i < Math.floor(arr.length / 2); i++){
+        newArr.push(arr[i]);
+      }
+    }
+    if ($scope.question.q2 == "no"){
+      for (let i = Math.floor(arr.length / 2); i <= arr.length - 1; i++){
+        newArr.push(arr[i]);
+      }
+    }
+    console.log("newArr");
+    console.log(newArr);
+    return newArr;
+}
+
+$scope.getStatesQ3 = function(){
+  console.log("$scope.question.q3");
+  console.log($scope.question.q3);
+  let arr = $scope.getStatesQ2();
+  let newArr = [];
+  arr.sort(function(a, b) {
+    return parseFloat(a.percapitaincome) - parseFloat(b.percapitaincome);
+  });
+  console.log("arr sort percapitaincome");
+  console.log(arr);
+  if ($scope.question.q3 == "yes"){
+    for (let i = 0; i < Math.floor(arr.length / 2); i++){
+      newArr.push(arr[i]);
+    }
+  }
+  if ($scope.question.q3 == "no"){
+    for (let i = Math.floor(arr.length / 2); i <= arr.length - 1; i++){
+      newArr.push(arr[i]);
+    }
+  }
+  console.log("newArr");
+  console.log(newArr);
+  return newArr;
+}
+
+$scope.getStatesQ4 = function(){
+  console.log("$scope.question.q4");
+  console.log($scope.question.q4);
+  let arr = $scope.getStatesQ3();
+  let newArr = [];
+  arr.sort(function(a, b) {
+    return parseFloat(a.population) - parseFloat(b.population);
+  });
+  console.log("arr sort population");
+  console.log(arr);
+  if ($scope.question.q4 == "less"){
+    for (let i = 0; i < Math.floor(arr.length / 2); i++){
+      newArr.push(arr[i]);
+    }
+  }
+  if ($scope.question.q4 == "dense"){
+    for (let i = Math.floor(arr.length / 2); i <= arr.length - 1; i++){
+      newArr.push(arr[i]);
+    }
+  }
+  console.log("newArr");
+  console.log(newArr);
+  return newArr;
+}
+
+$scope.getStatesQ5 = function(){
+  console.log("$scope.question.q5");
+  console.log($scope.question.q5);
+  let arr = $scope.getStatesQ4();
+  arr.sort(function(a, b) {
+    return parseFloat(a.natparks) - parseFloat(b.natparks);
+  });
+  console.log("arr sort natparks");
+  console.log(arr);
+  if ($scope.question.q5 == "yes"){
+    console.log("your state is ");
+    console.log(arr[arr.length - 1]);
+  
+    console.log("your state  name is ");
+    console.log(arr[arr.length - 1]);
+
+    $scope.stateName = arr[arr.length - 1].name;
+    $scope.stateNickname = arr[arr.length - 1].nickname;
+    $scope.stateTempJanuary = arr[arr.length - 1].tempjanuary;
+    $scope.stateTempJuly = arr[arr.length - 1].tempjuly;
+    $scope.stateNumParks = arr[arr.length - 1].natparks;
+    $scope.statePerCapitaIncome = arr[arr.length - 1].percapitaincome;
+    $scope.stateCrimeRate = arr[arr.length - 1].сrimerate;
+    $scope.stateFunFacts = arr[arr.length - 1].funfacts;
+  }
+  if ($scope.question.q5 == "no"){
+    console.log("your state is ");
+    console.log(arr[0]);
+
+    // return arr[0];
+    console.log("your state  name is ");
+    console.log(arr[0].name);
+
+    $scope.stateName = arr[0].name;
+    $scope.stateNickname = arr[0].nickname;
+    $scope.stateTempJanuary = arr[0].tempjanuary;
+    $scope.stateTempJuly = arr[0].tempjuly;
+    $scope.stateNumParks = arr[0].natparks;
+    $scope.statePerCapitaIncome = arr[0].percapitaincome;
+    $scope.stateCrimeRate = arr[0].сrimerate;
+    $scope.stateFunFacts = arr[0].funfacts;
+  }
+}
+
   });
 
 //End angular for select
