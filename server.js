@@ -20,7 +20,7 @@ app.get('/censuses', function(request, response) {
 
 app.get('/states', function(request, response) {
 	console.log('Server received GET request from Angular controller');
-	db2.statefacts_db.find({}, {"name":1, "nickname":1, "population":1, "tempjanuary":1, "tempjuly":1, "natparks":1, "percapitaincome":1, "сrimerate":1, "funfacts":1, _id:0}, function(error, docs) {
+	db2.statefacts_db.find({}, {"num":1, "name":1, "nickname":1, "population":1, "tempjanuary":1, "tempjuly":1, "natparks":1, "percapitaincome":1, "сrimerate":1, "funfacts":1, _id:0}, function(error, docs) {
 	response.json(docs);
 	});
 

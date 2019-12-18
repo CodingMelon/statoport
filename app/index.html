@@ -26,9 +26,9 @@
                 <h1>Question 1 (of 5)</h1>
                 <p>What do you like more the snow or the heat?</p>
 
-                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q1" value="cold" ng-checked={{clearRadio}}><label for="radio-one">Cold</label>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q1" value="cold"><label for="radio-one">Cold</label>
                 <br>
-                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q1" value="heat" ng-checked={{clearRadio}}><label for="radio-one">Heat</label>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q1" value="heat"><label for="radio-one">Heat</label>
                 <br> <br>
                 <button type="submit" id="from1to2" ng-click="getStatesQ1()">Next</button>
             </form>
@@ -74,16 +74,31 @@
             </form>
 
             <form id="result">
-                <h1>Result</h1>
-                <h1>Your state is: {{stateName}}</h1>
-                <p>State nickname: {{stateNickname}}</p>
-                <p>Temperature in January: {{stateTempJanuary}}</p>
-                <p>Temperature in July: {{stateTempJuly}}</p>
-                <p>Number of national parks: {{stateNumParks}}</p>
-                <p>Per capita income: {{statePerCapitaIncome}}</p>
-                <p>Crime rate: {{stateCrimeRate}}</p>
-                <p>Fun facts: {{stateFunFacts}}</p>
-                <button type="submit" id="Try again">Try again</button>
+                <div id="resultData">
+                    <table>
+                        <tr>
+                          <th>
+                            <h1>Your state is </h1>
+                            <h1>{{stateName}}</h1>
+                            <p><span class="labelForP">State nickname: </span>{{stateNickname}}</p>
+                          </th>
+                          <th><p id="pForImg">{{stateImage}}</p></th>
+                        </tr>
+                        <tr>
+                          <td>
+                              <p>{{stateTempJanuary}} <span class="labelForP">F in January</span></p>
+                              <p>{{stateTempJuly}} <span class="labelForP">F in July</span></p>
+                          </td>
+                          <td>
+                              <p><span class="labelForP">Number of national parks: </span>{{stateNumParks}}</p>
+                              <p><span class="labelForP">Per capita income: </span>{{statePerCapitaIncome}}<span class="labelForP">$</span></p>
+                              <p><span class="labelForP">Crime rate (per 100,000 population): </span>{{stateCrimeRate}}</p>
+                          </td>
+                        </tr>
+                      </table>
+                  <p><span class="labelForP">Fun facts: </span>{{stateFunFacts}}</p>
+              </div>
+                <button type="submit" id="Try again" ng-click="clearRadio()">Try again</button>
             </form>
 
         </div>
@@ -158,7 +173,7 @@
 
   <script type='text/javascript' src='scripts/script.js'></script>
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAai5JG0shoNVVtJva0jOLBCOIhQehfDxI&callback=initMap">
     </script>
   </body>
 </html>

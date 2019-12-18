@@ -1,3 +1,4 @@
+
       
       var mapStyle = [{
         'stylers': [{'visibility': 'off'}]
@@ -101,7 +102,7 @@
           censusData.forEach(function(row) {
             var censusVariable = parseFloat(row[0]);
             var stateId = row[1];
-            console.log(stateId);
+            // console.log(stateId);
 
             // keep track of min and max values
             if (censusVariable < censusMin) {
@@ -128,8 +129,8 @@
       function clearCensusData() {
         censusMin = Number.MAX_VALUE;
         censusMax = -Number.MAX_VALUE;
-        console.log("DEBUG!!!");
-        console.log(map);
+        // console.log("DEBUG!!!");
+        // console.log(map);
         map.data.forEach(function(row) {
           row.setProperty('census_variable', undefined);
         });
@@ -220,6 +221,11 @@
 let statoportApp = angular.module('statoportApp', []);
 //statoportApp.controller('formController', ['$scope', function($scope, $http) {
 statoportApp.controller('formController', function($scope, $http) {
+  $scope.dataForm = document.getElementById("data-form");
+  $scope.q1Arr = [];
+  $scope.q2Arr = [];
+  $scope.q3Arr = [];
+  $scope.q4Arr = [];
 
   let getSelectOptions = function() {
 		$http.get('/censuses').then(function(response) {
@@ -243,7 +249,7 @@ statoportApp.controller('formController', function($scope, $http) {
           clearCensusData();
           // loadCensusData($scope.censusSelect.value);
           loadCensusData_new($scope.censusSelect.value);
-          console.log($scope.censuses);
+          // console.log($scope.censuses);
           //console.log($scope.censusSelect.value);
       }
     }
@@ -273,8 +279,8 @@ statoportApp.controller('formController', function($scope, $http) {
 
   $scope.getStatesQ1 = function(){
     let newArr = [];
-      console.log("$scope.question.q1");
-      console.log($scope.question.q1);
+      // console.log("$scope.question.q1");
+      // console.log($scope.question.q1);
       let arr = $scope.states;
       arr.sort(function(a, b) {
         return parseFloat(a.tempjanuary) - parseFloat(b.tempjanuary);
@@ -291,16 +297,20 @@ statoportApp.controller('formController', function($scope, $http) {
           newArr.push(arr[i]);
         }
       }
-      // console.log("newArr");
-      // console.log(newArr);
-      // $scope.clearRadio = false;
-      return newArr;
+      console.log("newArr");
+      console.log(newArr);
+    
+      //return newArr;
+      $scope.q1Arr = newArr;
   }
 
   $scope.getStatesQ2 = function(){
-    console.log("$scope.question.q2");
-    console.log($scope.question.q2);
-    let arr = $scope.getStatesQ1();
+    // console.log("$scope.question.q2");
+    // console.log($scope.question.q2);
+    
+    // let arr = $scope.getStatesQ1();
+    let arr = $scope.q1Arr;
+
     let newArr = [];
     arr.sort(function(a, b) {
       return parseFloat(a.сrimerate) - parseFloat(b.сrimerate);
@@ -319,13 +329,18 @@ statoportApp.controller('formController', function($scope, $http) {
     }
     console.log("newArr");
     console.log(newArr);
-    return newArr;
+    
+    //return newArr;
+    $scope.q2Arr = newArr;
 }
 
 $scope.getStatesQ3 = function(){
-  console.log("$scope.question.q3");
-  console.log($scope.question.q3);
-  let arr = $scope.getStatesQ2();
+  // console.log("$scope.question.q3");
+  // console.log($scope.question.q3);
+  
+  //let arr = $scope.getStatesQ2();
+  let arr = $scope.q2Arr;
+
   let newArr = [];
   arr.sort(function(a, b) {
     return parseFloat(a.percapitaincome) - parseFloat(b.percapitaincome);
@@ -344,13 +359,18 @@ $scope.getStatesQ3 = function(){
   }
   console.log("newArr");
   console.log(newArr);
-  return newArr;
+  
+  //return newArr;
+  $scope.q3Arr = newArr;
 }
 
 $scope.getStatesQ4 = function(){
-  console.log("$scope.question.q4");
-  console.log($scope.question.q4);
-  let arr = $scope.getStatesQ3();
+  // console.log("$scope.question.q4");
+  // console.log($scope.question.q4);
+  
+  //let arr = $scope.getStatesQ3();
+  let arr = $scope.q3Arr;
+  
   let newArr = [];
   arr.sort(function(a, b) {
     return parseFloat(a.population) - parseFloat(b.population);
@@ -369,24 +389,40 @@ $scope.getStatesQ4 = function(){
   }
   console.log("newArr");
   console.log(newArr);
-  return newArr;
+  
+  //return newArr;
+  $scope.q4Arr = newArr;
 }
 
 $scope.getStatesQ5 = function(){
-  console.log("$scope.question.q5");
-  console.log($scope.question.q5);
-  let arr = $scope.getStatesQ4();
+  // console.log("$scope.question.q5");
+  // console.log($scope.question.q5);
+  
+  //let arr = $scope.getStatesQ4();
+  let arr = $scope.q4Arr;
+  let urlImage = '';
+  let temp = '';
+
   arr.sort(function(a, b) {
     return parseFloat(a.natparks) - parseFloat(b.natparks);
   });
   console.log("arr sort natparks");
   console.log(arr);
   if ($scope.question.q5 == "yes"){
-    console.log("your state is ");
-    console.log(arr[arr.length - 1]);
+    // console.log("your state is ");
+    // console.log(arr[arr.length - 1]);
   
-    console.log("your state  name is ");
-    console.log(arr[arr.length - 1]);
+    // console.log("your state  name is ");
+    // console.log(arr[arr.length - 1]);
+
+    urlImage = "\"imgparks/" + arr[arr.length - 1].num + ".png" + "\"";
+    temp = "<img" + " " + "src=" + urlImage + " ";
+    temp = temp + "width=" + "\"" + 190 + "\"" + " " + "height=" + "\"" + 150 + "\"" + ">";
+    $scope.stateImage = temp;
+    document.getElementById("pForImg").innerHTML = $scope.stateImage;
+    console.log("$scope.stateImage");
+    console.log($scope.stateImage);
+    // document.innerHTML = $scope.stateImage;
 
     $scope.stateName = arr[arr.length - 1].name;
     $scope.stateNickname = arr[arr.length - 1].nickname;
@@ -398,12 +434,21 @@ $scope.getStatesQ5 = function(){
     $scope.stateFunFacts = arr[arr.length - 1].funfacts;
   }
   if ($scope.question.q5 == "no"){
-    console.log("your state is ");
-    console.log(arr[0]);
+    // console.log("your state is ");
+    // console.log(arr[0]);
 
     // return arr[0];
-    console.log("your state  name is ");
-    console.log(arr[0].name);
+    // console.log("your state  name is ");
+    // console.log(arr[0].name);
+
+    urlImage = "\"imgparks/" + arr[0].num + ".png" + "\"";
+    temp = "<img" + " " + "src=" + urlImage + " ";
+    temp = temp + "width=" + "\"" + 190 + "\"" + " " + "height=" + "\"" + 150 + "\"" + ">";
+    $scope.stateImage = temp;
+    document.getElementById("pForImg").innerHTML = $scope.stateImage;
+    console.log("$scope.stateImage");
+    console.log($scope.stateImage);
+    // document.innerHTML = $scope.stateImage;
 
     $scope.stateName = arr[0].name;
     $scope.stateNickname = arr[0].nickname;
@@ -416,7 +461,15 @@ $scope.getStatesQ5 = function(){
   }
 }
 
-  });
+$scope.clearRadio = function(){
+  $scope.question.q1 = null;
+  $scope.question.q2 = null;
+  $scope.question.q3 = null;
+  $scope.question.q4 = null;
+  $scope.question.q5 = null;
+}
+
+});
 
 //End angular for select
 
