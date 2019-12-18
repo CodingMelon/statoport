@@ -19,74 +19,86 @@
                 <h1>Want to know which state suits you best?</h1>
                 <p>You will need to answer only 5 questions.</p> 
                 <br> 
-                <button type="submit" id="fromStartTo1">Start</button>
+                <button type="submit" id="fromStartTo1" ng-model="states" ng-click="getAllStates()">Start</button>
             </form>
         
             <form id="question1">
                 <h1>Question 1 (of 5)</h1>
-                <p>Some question Coming Soon</p>
+                <p>What do you like more the snow or the heat?</p>
 
-                <input type="radio" name="q1" value="value1" id="radio-one" class="form-radio"><label for="radio-one">Value1</label>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q1" value="cold"><label for="radio-one">Cold</label>
                 <br>
-                <input type="radio" name="q1" value="value2" id="radio-one" class="form-radio"><label for="radio-one">Value2</label>
-                <br>
-                <input type="radio" name="q1" value="value3" id="radio-one" class="form-radio"><label for="radio-one">Value3</label>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q1" value="heat"><label for="radio-one">Heat</label>
                 <br> <br>
-                <button type="submit" id="from1to2">Next</button>
+                <button type="submit" id="from1to2" ng-click="getStatesQ1()">Next</button>
             </form>
            
             <form id="question2">
                 <h1>Question 2 (of 5)</h1>
-                <p>Some question Coming Soon</p>
-                <input type="radio" name="q2" value="value1" id="radio-one" class="form-radio"><label for="radio-one">Value1</label>
+                <p>How important is your safety to you?</p>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q2" value="yes"><label for="radio-one">Important</label>
                 <br>
-                <input type="radio" name="q2" value="value2" id="radio-one" class="form-radio"><label for="radio-one">Value2</label>
-                <br>
-                <input type="radio" name="q2" value="value3" id="radio-one" class="form-radio"><label for="radio-one">Value3</label>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q2" value="no"><label for="radio-one">Not important</label>
                 <br> <br>
-                <button type="submit" id="from2to3">Next</button>
+                <button type="submit" id="from2to3" ng-click="getStatesQ2()">Next</button>
             </form>
 
             <form id="question3">
                 <h1>Question 3 (of 5)</h1>
-                <p>Some question Coming Soon</p>
-                <input type="radio" name="q3" value="value1" id="radio-one" class="form-radio"><label for="radio-one">Value1</label>
+                <p>How important is living in a region with high average household income?</p>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q3" value="yes"><label for="radio-one">Important</label>
                 <br>
-                <input type="radio" name="q3" value="value2" id="radio-one" class="form-radio"><label for="radio-one">Value2</label>
-                <br>
-                <input type="radio" name="q3" value="value3" id="radio-one" class="form-radio"><label for="radio-one">Value3</label>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q3" value="no"><label for="radio-one">Not important</label>
                 <br> <br>
-                <button type="submit" id="from3to4">Next</button>
+                <button type="submit" id="from3to4" ng-click="getStatesQ3()">Next</button>
             </form>
 
             <form id="question4">
                 <h1>Question 4 (of 5)</h1>
-                <p>Some question Coming Soon</p>
-                <input type="radio" name="q4" value="value1" id="radio-one" class="form-radio"><label for="radio-one">Value1</label>
+                <p>What kind of population do you like?</p>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q4" value="less"><label for="radio-one">The less the better</label>
                 <br>
-                <input type="radio" name="q4" value="value2" id="radio-one" class="form-radio"><label for="radio-one">Value2</label>
-                <br>
-                <input type="radio" name="q4" value="value3" id="radio-one" class="form-radio"><label for="radio-one">Value3</label>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q4" value="dense"><label for="radio-one">Dense population</label>
                 <br> <br>
-                <button type="submit" id="from4to5">Next</button>
+                <button type="submit" id="from4to5" ng-click="getStatesQ4()">Next</button>
             </form>
 
             <form id="question5">
                 <h1>Question 5 (of 5)</h1>
-                <p>Some question Coming Soon</p>
-                <input type="radio" name="q5" value="value1" id="radio-one" class="form-radio"><label for="radio-one">Value1</label>
+                <p>Availability of national parks</p>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q5" value="yes"><label for="radio-one">I love nature and parks</label>
                 <br>
-                <input type="radio" name="q5" value="value2" id="radio-one" class="form-radio"><label for="radio-one">Value2</label>
-                <br>
-                <input type="radio" name="q5" value="value3" id="radio-one" class="form-radio"><label for="radio-one">Value3</label>
+                <input type="radio" id="radio-one" class="form-radio" ng-model="question.q5" value="no"><label for="radio-one">I can do without parks</label>
                 <br> <br>
-                <button type="submit" id="from5toResult">Get Result</button>
+                <button type="submit" id="from5toResult" ng-click="getStatesQ5()">Get Result</button>
             </form>
 
             <form id="result">
-                <h1>Result</h1>
-                <p>Some result Coming Soon</p>
-                <button type="submit" id="Try again">Try again</button>
+                <div id="resultData">
+                    <table>
+                        <tr>
+                          <th>
+                            <h1>Your state is </h1>
+                            <h1>{{stateName}}</h1>
+                            <p><span class="labelForP">State nickname: </span>{{stateNickname}}</p>
+                          </th>
+                          <th><p id="pForImg">{{stateImage}}</p></th>
+                        </tr>
+                        <tr>
+                          <td>
+                              <p>{{stateTempJanuary}} <span class="labelForP">F in January</span></p>
+                              <p>{{stateTempJuly}} <span class="labelForP">F in July</span></p>
+                          </td>
+                          <td>
+                              <p><span class="labelForP">Number of national parks: </span>{{stateNumParks}}</p>
+                              <p><span class="labelForP">Per capita income: </span>{{statePerCapitaIncome}}<span class="labelForP">$</span></p>
+                              <p><span class="labelForP">Crime rate (per 100,000 population): </span>{{stateCrimeRate}}</p>
+                          </td>
+                        </tr>
+                      </table>
+                  <p><span class="labelForP">Fun facts: </span>{{stateFunFacts}}</p>
+              </div>
+                <button type="submit" id="Try again" ng-click="clearRadio()">Try again</button>
             </form>
 
         </div>
