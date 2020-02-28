@@ -408,6 +408,12 @@ $scope.getStatesQ5 = function(){
   });
   console.log("arr sort natparks");
   console.log(arr);
+
+  //hide image
+  let dataForm = document.getElementById("data-form");
+  dataForm.style.backgroundImage = "none";
+  // $scope.data-form.style.background-image = 'none';
+
   if ($scope.question.q5 == "yes"){
     // console.log("your state is ");
     // console.log(arr[arr.length - 1]);
@@ -422,7 +428,6 @@ $scope.getStatesQ5 = function(){
     document.getElementById("pForImg").innerHTML = $scope.stateImage;
     console.log("$scope.stateImage");
     console.log($scope.stateImage);
-    // document.innerHTML = $scope.stateImage;
 
     $scope.stateName = arr[arr.length - 1].name;
     $scope.stateNickname = arr[arr.length - 1].nickname;
@@ -467,6 +472,8 @@ $scope.clearRadio = function(){
   $scope.question.q3 = null;
   $scope.question.q4 = null;
   $scope.question.q5 = null;
+  let dataForm = document.getElementById("data-form");
+  dataForm.style.backgroundImage = url("carGrey3.png");
 }
 
 });
